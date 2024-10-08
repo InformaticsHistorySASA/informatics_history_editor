@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Froala Editor - Link Embedding Only</title>
+
+    <!-- Froala Editor CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.7/css/froala_editor.pkgd.min.css" rel="stylesheet">
+    <!-- Froala Editor JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.7/js/froala_editor.pkgd.min.js"></script>
+</head>
+
+<body>
+    <div id="editor" target="blank"></div>
+	<a href="./upload.html" target="_blank" rel="noopener noreferrer">새 파일 등록하기</a>
+	<button>게시글 업로드</button>
+
+    <script>
+        new FroalaEditor('#editor', {
+            // 툴바에 필요한 버튼 추가 (업로드 기능 제외)
+            toolbarButtons: ['fullscreen', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
+				'fontFamily', 'fontSize', 'textColor', 'backgroundColor', '|',
+				'inlineClass', 'inlineStyle', 'paragraphStyle', '|',
+				'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|',
+				'insertLink', 'insertImage', 'insertVideo', 'insertTable', '|',
+				'emoticons', 'specialCharacters', 'insertHR', 'insertHTML', '|',
+				'undo', 'redo', 'clearFormatting', 'selectAll', '|', 'html', 'help'],
+
+            // 이미지, 동영상, 파일 업로드 기능 비활성화
+            imageUpload: false,
+            videoUpload: false,
+            fileUpload: false,
+
+            // 이미지를 URL을 통해서만 삽입하도록 설정
+            imageInsertButtons: ['imageByURL'],
+
+            // 동영상도 URL을 통해서만 삽입
+            videoInsertButtons: ['videoByURL'],
+
+            // 파일 업로드 기능은 비활성화하고, 대신 링크를 통해 다운로드 파일을 삽입
+        });
+    </script>
+
+</body>
+
+</html>
