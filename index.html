@@ -4,43 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Froala Editor - Link Embedding Only</title>
+    <title>Quill Editor - Link Embedding Only</title>
 
-    <!-- Froala Editor CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.7/css/froala_editor.pkgd.min.css" rel="stylesheet">
-    <!-- Froala Editor JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.7/js/froala_editor.pkgd.min.js"></script>
+    <!-- Quill Editor CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="editor" target="blank"></div>
-	<a href="./upload.html" target="_blank" rel="noopener noreferrer">새 파일 등록하기</a>
-	<button>게시글 업로드</button>
+    <div id="editor-container" style="height: 300px;"></div>
+    <a href="./upload.html" target="_blank" rel="noopener noreferrer">새 파일 등록하러 가기</a>
+    <button onclick="uploadPost()">게시글 업로드</button>
+
+    <!-- Quill Editor JS -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
     <script>
-        new FroalaEditor('#editor', {
-            // 툴바에 필요한 버튼 추가 (업로드 기능 제외)
-            toolbarButtons: ['fullscreen', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
-				'fontFamily', 'fontSize', 'textColor', 'backgroundColor', '|',
-				'inlineClass', 'inlineStyle', 'paragraphStyle', '|',
-				'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|',
-				'insertLink', 'insertImage', 'insertVideo', 'insertTable', '|',
-				'emoticons', 'specialCharacters', 'insertHR', 'insertHTML', '|',
-				'undo', 'redo', 'clearFormatting', 'selectAll', '|', 'html', 'help'],
-
-            // 이미지, 동영상, 파일 업로드 기능 비활성화
-            imageUpload: false,
-            videoUpload: false,
-            fileUpload: false,
-
-            // 이미지를 URL을 통해서만 삽입하도록 설정
-            imageInsertButtons: ['imageByURL'],
-
-            // 동영상도 URL을 통해서만 삽입
-            videoInsertButtons: ['videoByURL'],
-
-            // 파일 업로드 기능은 비활성화하고, 대신 링크를 통해 다운로드 파일을 삽입
+        // Quill Editor 초기화
+        const quill = new Quill('#editor-container', {
+            theme: 'snow',  // 테마 선택
+            modules: {
+                toolbar: [
+                    [{ 'font': [] }, { 'size': [] }],
+                    ['bold', 'italic', 'underline', 'strike'],        // 텍스트 스타일
+                    [{ 'color': [] }, { 'background': [] }],          // 텍스트 색상 및 배경 색상
+                    [{ 'script': 'sub' }, { 'script': 'super' }],     // 서브스크립트 / 슈퍼스크립트
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],    // 리스트
+                    [{ 'align': [] }],
+                    ['link', 'image', 'video'],                        // 링크, 이미지, 동영상
+                    ['clean']                                         // 서식 지우기
+                ]
+            }
         });
+
+        // 이미지, 동영상 삽입은 URL을 통해서만 가능 (업로드 기능 없음)
+        function uploadPost() {
+            const content = quill.root.innerHTML;
+            console.log(content);  // 작성된 HTML을 서버로 보낼 수 있음
+            // 서버로 전송하는 로직을 여기에 추가
+        }
     </script>
 
 </body>
